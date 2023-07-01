@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${channel.name}"></title>
+    <link rel="stylesheet" href="/css/channel.css" />
+    <style>
+        /* Add your custom styling here */
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .message-container {
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .timestamp {
+            font-weight: bold;
+        }
+
+        .message-box {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #messageBox {
+            width: 400px;
+            height: 80px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+    </style>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var channelId = /*[[${channel.id}]]*/ null;
+        var user = sessionStorage.getItem("username");
+        if (user == null) {
+            window.location.href = '/welcome';
+        }
+        /*]]>*/
+    </script>
+</head>
+<body>
+<div class="message-container">
+    <div th:each="message : ${messages}">
+        <span class="timestamp" th:text="${message.userId} + ': '"></span>
+        <span class="message" th:text="${message.content}"></span>
+    </div>
+</div>
+<div class="message-box">
+    <textarea rows="3" cols="30" id="messageBox"></textarea>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/channel.js"></script>
+</body>
+</html>
